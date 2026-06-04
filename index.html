@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กิจกรรมทายผลฟุตบอลระดับโลก 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #198754;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Kanit', sans-serif;
+            /* 1. ดึงรูปจากโฟลเดอร์เครื่องเคลือบใส 15% */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('fff.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+            color: var(--dark-color);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #0b409c;
+            font-size: 24px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .header p {
+            margin: 5px 0 0 0;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Kanit', sans-serif;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(25, 135, 84, 0.2);
+        }
+
+        .submit-btn:hover {
+            background: #146c43;
+        }
+
+        /* 🚨 ดีไซน์ระบบกล่องป๊อปอัปเด้งกลางจอ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .result-box {
+            background: #ffffff !important;
+            max-width: 500px;
+            width: 100%;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            animation: popUp 0.3s ease-out;
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>⚽ กิจกรรมทายผลรอบแบ่งกลุ่ม</h1>
+        <p>ร่วมสนุกทายผลเพื่อลุ้นรับรางวัล!</p>
+    </div>
+
+    <form id="predictionForm">
+        <div class="form-group">
+            <label for="playerName">User / เบอร์โทร</label>
+            <input type="text" id="playerName" class="form-control" placeholder="xxx" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="playerContact">เบอร์โทรศัพท์ หรือ LINE ID (สำหรับรับรางวัล)</label>
+            <input type="text" id="playerContact" class="form-control" placeholder="เช่น 081-xxxxxxx หรือ @lineid" required>
+        </div>
+
+        <div style="width: 100%; margin: 25px 0; text-align: center;">
+            <img src="2.jpg" alt="กิจกรรมทายผล" style="width: 100%; max-width: 100%; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #dee2e6; margin: 25px 0;">
+        <h3 style="margin-bottom: 15px; font-size: 18px;">ทายผลทีมที่จะได้ 9 คะแนนในรอบแบ่งกลุ่ม 🏆</h3>
+
+        <div class="form-group">
+            <label for="worldcup-team" style="font-weight: 600; margin-bottom: 8px; display: block;">เลือกทีมที่คุณต้องการทายผล (1 ทีม):</label>
+            <select id="worldcup-team" class="form-control" style="width: 100%; padding: 12px; border: 1px solid #dee2e6; border-radius: 6px; font-family: 'Kanit', sans-serif; background-color: #ffffff; color: #212529;" required>
+                <option value="" disabled selected>-- กรุณาเลือกประเทศ --</option>
+                
+                <optgroup label="เอเชีย (AFC)">
+                    <option value="กาตาร์">กาตาร์</option>
+                    <option value="เกาหลีใต้">เกาหลีใต้</option>
+                    <option value="ญี่ปุ่น">ญี่ปุ่น</option>
+                    <option value="ซาอุดีอาระเบีย">ซาอุดีอาระเบีย</option>
+                    <option value="ออสเตรเลีย">ออสเตรเลีย</option>
+                    <option value="อิหร่าน">อิหร่าน</option>
+                    <option value="อิรัก">อิรัก</option>
+                    <option value="อุซเบกิสถาน">อุซเบกิสถาน</option>
+                </optgroup>
+
+                <optgroup label="ยุโรป (UEFA)">
+                    <option value="กรีซ">กรีซ</option>
+                    <option value="โครเอเชีย">โครเอเชีย</option>
+                    <option value="เซอร์เบีย">เซอร์เบีย</option>
+                    <option value="เดนมาร์ก">เดนมาร์ก</option>
+                    <option value="ตุรกี">ตุรกี</option>
+                    <option value="เนเธอร์แลนด์">เนเธอร์แลนด์</option>
+                    <option value="เบลเยียม">เบลเยียม</option>
+                    <option value="โปรตุเกส">โปรตุเกส</option>
+                    <option value="ฝรั่งเศส">ฝรั่งเศส</option>
+                    <option value="ยูเครน">ยูเครน</option>
+                    <option value="เยอรมนี">เยอรมนี</option>
+                    <option value="โรมาเนีย">โรมาเนีย</option>
+                    <option value="สเปน">สเปน</option>
+                    <option value="สวิตเซอร์แลนด์">สวิตเซอร์แลนด์</option>
+                    <option value="ออสเตรีย">ออสเตรีย</option>
+                    <option value="อิตาลี">อิตาลี</option>
+                    <option value="อังกฤษ">อังกฤษ</option>
+                </optgroup>
+
+                <optgroup label="อเมริกาใต้ (CONMEBOL)">
+                    <option value="โคลอมเบีย">โคลอมเบีย</option>
+                    <option value="ชิลี">ชิลี</option>
+                    <option value="บราซิล">บราซิล</option>
+                    <option value="ปารากวัย">ปารากวัย</option>
+                    <option value="เปรู">เปรู</option>
+                    <option value="เวเนซุเอลา">เวเนซุเอลา</option>
+                    <option value="อาร์เจนตินา">อาร์เจนตินา</option>
+                    <option value="อุรุกวัย">อุรุกวัย</option>
+                </optgroup>
+
+                <optgroup label="อเมริกาเหนือ & กลาง (CONCACAF)">
+                    <option value="คอสตาริกา">คอสตาริกา</option>
+                    <option value="จาเมกา">จาเมกา</option>
+                    <option value="แคนาดา">แคนาดา</option>
+                    <option value="เม็กซิโก">เม็กซิโก</option>
+                    <option value="สหรัฐอเมริกา">สหรัฐอเมริกา</option>
+                    <option value="ฮอนดูรัส">ฮอนดูรัส</option>
+                </optgroup>
+
+                <optgroup label="แอฟริกา (CAF)">
+                    <option value="กานา">กานา</option>
+                    <option value="แคเมอรูน">แคเมอรูน</option>
+                    <option value="เซเนกัล">เซเนกัล</option>
+                    <option value="ตูนิเซีย">ตูนิเซีย</option>
+                    <option value="ไนจีเรีย">ไนจีเรีย</option>
+                    <option value="โมร็อกโก">โมร็อกโก</option>
+                    <option value="อียิปต์">อียิปต์</option>
+                    <option value="แอฟริกาใต้">แอฟริกาใต้</option>
+                    <option value="แอลจีเรีย">แอลจีเรีย</option>
+                </optgroup>
+
+                <optgroup label="โอเชียเนีย (OFC)">
+                    <option value="นิวซีแลนด์">นิวซีแลนด์</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <button type="submit" class="submit-btn">ส่งผลการทาย 🚀</button>
+    </form>
+</div>
+
+<div id="modalOverlay" class="modal-overlay">
+    <div id="resultBox" class="result-box">
+        <button type="button" class="close-modal-btn" onclick="closeModal()">✕</button>
+        <h4 style="margin: 0 0 10px 0; color: #dc3545; font-size: 20px;">🎉 บันทึกคำทายสำเร็จ!</h4>
+        <p style="font-size: 14px; margin: 0 0 15px 0; color: #495057;">ก๊อปปี้ข้อความด้านล่างนี้ ส่งกลับมาให้แอดมินทางแชทเพื่อยืนยันสิทธิ์</p>
+        <textarea id="resultText" style="width: 100%; height: 150px; padding: 10px; border: 1px solid #dee2e6; border-radius: 8px; font-family: monospace; resize: none; margin-bottom: 15px; box-sizing: border-box;" readonly></textarea>
+        <button onclick="copyToClipboard()" class="submit-btn" style="width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; font-family: 'Kanit', sans-serif; margin-top: 0;">📋 คัดลอกข้อความ</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('predictionForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 🛠️ 1. เอาลิงก์ Web App URL จาก Google Apps Script มาวางแทนคำด้านล่างนี้ครับ
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby4BTPf0Shp94DQacljBBCwGLdIVc8xxgPMqP3KPJ-QDkdNHo3oj4U2rNqE12TAvilJ/exec";
+        
+        const name = document.getElementById('playerName').value;
+        const contact = document.getElementById('playerContact').value;
+        const selectedTeam = document.getElementById('worldcup-team').value;
+        
+        // ปรับแต่งฟอร์แมตข้อความสรุป (ให้สอดคล้องกับคอลัมน์ User, Line ID ในชีตของคุณ)
+        const summaryText = `[ตั๋วทายผลบอลโลก 2026]\n` +
+                            `User: ${name}\n` +
+                            `Line ID: ${contact}\n` +
+                            `-------------------------\n` +
+                            `ทีมที่ทายว่าจะได้ 9 คะแนนเต็มรอบแบ่งกลุ่ม:\n` +
+                            `👉 [ ${selectedTeam} ] 🏆\n` +
+                            `-------------------------\n` +
+                            `#กิจกรรมทายผลบอล2026`;
+        
+        document.getElementById('resultText').value = summaryText;
+        
+        // อัปเดตสถานะปุ่มกดป้องกันเบิ้ลส่งซ้ำระหว่างบันทึกข้อมูล
+        const submitBtn = document.querySelector('.submit-btn');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "กำลังบันทึกข้อมูล... ⏳";
+
+        // 2. จัดระเบียบชุดข้อมูลเตรียมยิงไปที่ชีต
+        const formData = new FormData();
+        formData.append("playerName", name);
+        formData.append("playerContact", contact);
+        formData.append("worldcupTeam", selectedTeam);
+
+        // 3. เริ่มส่งข้อมูลเข้า Google Sheets แบบทำงานเบื้องหลัง
+        fetch(SCRIPT_URL, { method: 'POST', body: formData })
+        .then(response => {
+            // เมื่อส่งสำเร็จ -> เปิดกล่องป๊อปอัปเด้งแจ้งลูกค้า
+            document.getElementById('modalOverlay').style.display = 'flex';
+            
+            // รีเซ็ตปุ่มและแบบฟอร์มกลับสู่สภาพตั้งต้น
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            document.getElementById('predictionForm').reset();
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            alert('เกิดข้อผิดพลาดในการบันทึกลงชีตชั่วคราว แต่คุณยังก๊อปปี้ข้อความเพื่อส่งเข้าไลน์แอดมินได้');
+            document.getElementById('modalOverlay').style.display = 'flex';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        });
+    });
+
+    function closeModal() {
+        document.getElementById('modalOverlay').style.display = 'none';
+    }
+
+    function copyToClipboard() {
+        const copyText = document.getElementById('resultText');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        alert('คัดลอกข้อความลงคลิปบอร์ดแล้ว! ส่งเข้าไลน์แอดมินได้เลย');
+    }
+</script>
+
+</body>
+</html>
