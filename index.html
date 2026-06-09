@@ -316,7 +316,16 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(copyText.value);
-        alert('คัดลอกข้อความลงคลิปบอร์ดแล้ว! ส่งเข้าไลน์แอดมินได้เลย');
+        
+        // 🚨 อย่าลืมเปลี่ยนตรงนี้เป็น ID LINE OA ของคุณจริงๆ (แบบไม่มี @ นะครับ)
+        const LINE_OA_ID = "230aspct"; 
+        const encodedText = encodeURIComponent(copyText.value);
+        const lineUrl = `https://line.me/R/oaMessage/${LINE_OA_ID}/?${encodedText}`;
+        
+        alert('คัดลอกข้อความแล้ว! ระบบจะพาท่านไปยังแอป LINE เพื่อส่งข้อมูลยืนยันสิทธิ์');
+        
+        // สั่งเปิดแอป LINE และสลับเข้าหน้าแชทแอดมินพร้อมพิมพ์ข้อความให้ทันที
+        window.location.href = lineUrl;
     }
 </script>
 
