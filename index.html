@@ -317,16 +317,16 @@
         copyText.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(copyText.value);
         
-        // 🚨 ใส่ ID LINE OA ของคุณจริงๆ (แบบไม่มี @ เหมือนเดิมครับ)
-        const LINE_OA_ID = "230aspct"; 
-        const encodedText = encodeURIComponent(copyText.value);
+        // 🚨 1. เอาลิงก์เพิ่มเพื่อนที่ก๊อปมาจาก LINE OA มาวางในเครื่องหมายคำพูดด้านล่างนี้ครับแทนอันเดิม
+        const LINE_OFFICIAL_URL = "https://lin.ee/7S58sJ9"; 
         
-        // ปรับมาใช้ลิงก์แบบผ่านหน้าโปรไฟล์/เพิ่มเพื่อน เพื่อแก้บั๊ก "ไม่พบผู้ใช้งาน"
-        const lineUrl = `https://line.me/R/ti/p/${LINE_OA_ID}?text=${encodedText}`;
+        // 2. แปลงข้อความและผูกคำสั่งส่งข้อความออโต้เข้ากับลิงก์หลัก
+        const encodedText = encodeURIComponent(copyText.value);
+        const lineUrl = `${LINE_OFFICIAL_URL}?text=${encodedText}`;
         
         alert('คัดลอกข้อความแล้ว! ระบบจะพาท่านไปยังแอป LINE เพื่อส่งข้อมูลยืนยันสิทธิ์');
         
-        // สั่งเปิดแอป LINE
+        // สั่งวาร์ปเข้าแอป LINE
         window.location.href = lineUrl;
     }
 </script>
